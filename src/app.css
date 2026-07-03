@@ -1,0 +1,496 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Dynamic HSL Design System */
+  --bg-main: hsl(230, 25%, 5%);
+  --bg-gradient: radial-gradient(circle at 50% -20%, hsl(220, 35%, 12%) 0%, hsl(230, 25%, 5%) 80%);
+  
+  --surface-card: hsla(228, 18%, 10%, 0.65);
+  --surface-card-hover: hsla(228, 18%, 13%, 0.75);
+  --surface-card-border: hsla(228, 15%, 25%, 0.2);
+  --surface-card-border-active: hsla(220, 85%, 55%, 0.4);
+  
+  --text-primary: hsl(220, 20%, 96%);
+  --text-secondary: hsl(220, 15%, 80%);
+  --text-muted: hsl(220, 12%, 60%);
+  
+  /* Vibrant Accents */
+  --accent-blue: hsl(224, 85%, 58%);
+  --accent-blue-hover: hsl(224, 85%, 64%);
+  --accent-blue-glow: hsla(224, 85%, 58%, 0.25);
+  
+  --accent-teal: hsl(172, 80%, 43%);
+  --accent-teal-hover: hsl(172, 80%, 48%);
+  --accent-teal-glow: hsla(172, 80%, 43%, 0.25);
+  
+  --accent-purple: hsl(263, 75%, 60%);
+  --accent-purple-hover: hsl(263, 75%, 66%);
+  --accent-purple-glow: hsla(263, 75%, 60%, 0.25);
+
+  --accent-coral: hsl(355, 75%, 55%);
+  --accent-coral-glow: hsla(355, 75%, 55%, 0.25);
+
+  /* Fonts */
+  --font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* Effects */
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --backdrop-blur: blur(16px);
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-main);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Header & Structure */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+}
+
+.header {
+  text-align: center;
+  padding: 3rem 1.5rem 1rem 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Responsive Grid Pipeline */
+.module-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(230, 15%, 20%);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* Glassmorphism Cards */
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  padding: 1.75rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--surface-card-border-active);
+  background: var(--surface-card-hover);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+.card h2 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.05);
+  padding-bottom: 0.75rem;
+}
+
+.card h2 svg {
+  color: var(--accent-blue);
+}
+
+/* Settings HUD Card (Span full width on grid) */
+.settings-hud {
+  grid-column: 1 / -1;
+  background: hsla(228, 20%, 8%, 0.8);
+  border: 1px solid hsla(220, 85%, 55%, 0.15);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1.5rem;
+}
+
+.settings-hud .control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 250px;
+}
+
+.control-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.settings-hud .control-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Forms & Inputs */
+input[type="text"],
+input[type="number"],
+select {
+  background: hsla(228, 15%, 6%, 0.6);
+  border: 1px solid var(--surface-card-border);
+  color: var(--text-primary);
+  border-radius: var(--radius-input);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue-glow);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: hsla(228, 15%, 15%, 0.8);
+  border-radius: 4px;
+  height: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  margin-top: -6px;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  box-shadow: 0 0 8px var(--accent-blue-glow);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--accent-blue-hover);
+  transform: scale(1.15);
+}
+
+/* Buttons */
+.btn {
+  background: var(--accent-blue);
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-input);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--accent-blue-hover);
+  box-shadow: 0 0 15px var(--accent-blue-glow);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: hsla(228, 15%, 15%, 0.6);
+  border: 1px solid var(--surface-card-border);
+}
+
+.btn-secondary:hover {
+  background: hsla(228, 15%, 20%, 0.8);
+  border-color: var(--text-muted);
+  box-shadow: none;
+}
+
+.btn-accent {
+  background: var(--accent-teal);
+}
+
+.btn-accent:hover {
+  background: var(--accent-teal-hover);
+  box-shadow: 0 0 15px var(--accent-teal-glow);
+}
+
+.btn-danger {
+  background: var(--accent-coral);
+}
+
+.btn-danger:hover {
+  background: hsl(355, 75%, 60%);
+  box-shadow: 0 0 15px var(--accent-coral-glow);
+}
+
+/* Calculator Grid Elements */
+.calc-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+}
+
+.calc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.calc-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Numeric & Code Displays */
+.display-box {
+  background: hsla(228, 20%, 5%, 0.8);
+  border: 1px solid var(--surface-card-border);
+  border-radius: var(--radius-input);
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  margin-top: auto;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.display-box.pulse {
+  animation: pulse-border 0.08s ease-out;
+}
+
+@keyframes pulse-border {
+  0% {
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 10px var(--accent-teal-glow);
+  }
+  100% {
+    border-color: var(--surface-card-border);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  }
+}
+
+/* Dynamic Interactive Metronome Visualizer */
+.metro-visualizer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.metro-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: hsla(228, 15%, 15%, 0.8);
+  border: 1px solid var(--surface-card-border);
+  transition: background-color 0.1s ease-out, transform 0.1s ease-out;
+}
+
+.metro-dot.active {
+  background: var(--accent-coral);
+  transform: scale(1.25);
+  box-shadow: 0 0 12px var(--accent-coral-glow);
+}
+
+.metro-dot.accent-beat.active {
+  background: var(--accent-teal);
+  box-shadow: 0 0 12px var(--accent-teal-glow);
+}
+
+/* Delay Table Scroll Layout */
+.table-container {
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--surface-card-border);
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.delay-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.delay-table th {
+  background: hsla(228, 20%, 6%, 0.9);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--surface-card-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.delay-table td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.03);
+  font-family: var(--font-mono);
+}
+
+.delay-table tr:hover td {
+  background: hsla(0, 0%, 100%, 0.02);
+}
+
+.delay-table td span.ms {
+  color: var(--text-primary);
+}
+
+.delay-table td span.hz {
+  color: var(--accent-purple);
+}
+
+/* Note/Frequency Table Grid Layout */
+.note-grid-container {
+  max-height: 280px;
+  overflow-y: auto;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--surface-card-border);
+}
+
+.note-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.03);
+}
+
+.note-row:nth-child(even) {
+  background: hsla(0, 0%, 100%, 0.01);
+}
+
+.note-row:hover {
+  background: hsla(0, 0%, 100%, 0.03);
+}
+
+.note-row .midi-num {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  width: 40px;
+}
+
+.note-row .note-name {
+  font-weight: 500;
+}
+
+.note-row .freq-val {
+  color: var(--accent-teal);
+  font-family: var(--font-mono);
+}
+
+/* Media Query Pipeline for Grid Columns */
+@media (min-width: 48em) { /* 768px */
+  .module-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 68em) { /* 1088px */
+  .module-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 90em) { /* 1440px */
+  .module-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
